@@ -1,0 +1,23 @@
+function analyze() {
+    let score = 0;
+
+    if (document.getElementById("mobile").checked) score += 20;
+    if (document.getElementById("contact").checked) score += 20;
+    if (document.getElementById("cta").checked) score += 20;
+    if (document.getElementById("social").checked) score += 10;
+    if (document.getElementById("design").checked) score += 30;
+
+    let priority;
+
+    if (score < 40) {
+        priority = "Low";
+    } else if (score < 70) {
+        priority = "Medium";
+    } else {
+        priority = "High";
+    }
+
+    document.getElementById("result").innerHTML =
+        `<h2>Score: ${score}/100</h2>
+         <p>Priority: ${priority}</p>`;
+}
