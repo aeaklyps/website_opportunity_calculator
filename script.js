@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+}
+
+label {
+    display: block;
+    margin: 12px;
+}
+
+button {
+    padding: 12px 25px;
+    margin-top: 20px;
+}
