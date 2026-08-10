@@ -1,21 +1,37 @@
-body {
-    font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 20px;
-}
+function analyze() {
+    let score = 0;
 
-input {
-    padding: 10px;
-    margin: 5px;
-}
+    if (!document.getElementById("mobile").checked) {
+        score += 20;
+    }
 
-label {
-    display: block;
-    margin: 12px;
-}
+    if (!document.getElementById("contact").checked) {
+        score += 20;
+    }
 
-button {
-    padding: 12px 25px;
-    margin-top: 20px;
+    if (!document.getElementById("cta").checked) {
+        score += 20;
+    }
+
+    if (!document.getElementById("social").checked) {
+        score += 10;
+    }
+
+    if (!document.getElementById("design").checked) {
+        score += 30;
+    }
+
+    let priority;
+
+    if (score >= 70) {
+        priority = "High";
+    } else if (score >= 40) {
+        priority = "Medium";
+    } else {
+        priority = "Low";
+    }
+
+    document.getElementById("result").innerHTML =
+        "<h2>Opportunity Score: " + score + "/100</h2>" +
+        "<p>Priority: " + priority + "</p>";
 }
