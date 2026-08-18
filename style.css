@@ -2,174 +2,254 @@
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
     background: #030505;
     color: #eeeeee;
     font-family: "Orbitron", Arial, sans-serif;
-    min-height: 100vh;
 }
 
-/* -------------------------
+
+/* =========================
    BACKGROUND
-------------------------- */
+========================= */
 
 .grid-background {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
+    pointer-events: none;
 
     background-image:
-        linear-gradient(rgba(60, 220, 200, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(60, 220, 200, 0.035) 1px, transparent 1px);
-
-    background-size: 55px 55px;
-
-    pointer-events: none;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(90, 220, 210, 0.08),
-            transparent 45%
+        linear-gradient(
+            rgba(70, 220, 200, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(70, 220, 200, 0.035) 1px,
+            transparent 1px
         );
 
-    pointer-events: none;
+    background-size: 55px 55px;
 }
 
-/* -------------------------
-   MAIN CONTAINERS
-------------------------- */
+
+/* =========================
+   CONTAINERS
+========================= */
+
+.home-container {
+    position: relative;
+    z-index: 1;
+
+    width: 92%;
+    max-width: 1250px;
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding: 35px 40px;
+
+    overflow: hidden;
+}
 
 .container {
     width: 92%;
     max-width: 1250px;
-    margin: auto;
-    position: relative;
-}
 
-.home-container {
-    min-height: 100vh;
+    margin: auto;
+
     padding: 35px 40px;
 }
 
 .page-container {
     min-height: 100vh;
-    padding: 35px 40px;
 }
 
-/* -------------------------
+
+/* =========================
    BRAND
-------------------------- */
+========================= */
 
 .brand {
-    font-size: 20px;
-    letter-spacing: 4px;
-    color: #e9eeee;
+    position: relative;
+    z-index: 5;
+
+    font-size: 16px;
+    letter-spacing: 3px;
+
+    color: #eeeeee;
 }
 
 .brand span {
     display: block;
-    font-size: 8px;
+
+    margin-top: 5px;
+
+    font-size: 7px;
     letter-spacing: 2px;
+
     color: #4edcca;
-    margin-top: 4px;
 }
 
-/* -------------------------
-   TEXT
-------------------------- */
+
+/* =========================
+   GENERAL TEXT
+========================= */
 
 .eyebrow {
     color: #51ddca;
-    font-size: 10px;
+
+    font-size: 9px;
+
     letter-spacing: 3px;
+
+    margin-bottom: 20px;
 }
 
 h1 {
-    font-size: clamp(35px, 5vw, 70px);
+    font-size: 42px;
+
     line-height: 1.05;
-    letter-spacing: 3px;
+
+    letter-spacing: 2px;
+
+    font-weight: 500;
+
     margin: 20px 0;
 }
 
+.home-text h1 {
+    font-size: clamp(32px, 4vw, 52px);
+}
+
 .description {
+
+    margin-top: 25px;
+
     color: #65d9cf;
-    font-size: 12px;
+
+    font-size: 10px;
+
     line-height: 2;
+
     letter-spacing: 1px;
 }
 
 .instructions {
+
     font-size: 8px;
+
     color: #4edcca;
+
     letter-spacing: 1px;
 }
 
-/* -------------------------
-   HOME
-------------------------- */
 
-.home-content {
+/* =========================
+   HOME
+========================= */
+
+.home-main {
+
     position: relative;
-    min-height: 550px;
+
+    min-height: 600px;
 
     display: flex;
+
     align-items: center;
 }
 
 .home-text {
+
+    position: relative;
+
+    z-index: 3;
+
     width: 45%;
-    z-index: 2;
+
+    padding-left: 20px;
 }
 
-.flower-container {
+
+/* =========================
+   HOME FLOWER
+========================= */
+
+.home-flower {
+
     position: absolute;
 
-    width: 55%;
-    height: 650px;
+    z-index: 2;
 
-    right: 3%;
-    top: -30px;
+    left: 42%;
+
+    top: 0;
+
+    width: 50%;
+
+    height: 600px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
+    pointer-events: none;
 }
 
-.flower {
+.home-flower img {
+
     width: 100%;
-    max-width: 600px;
+
+    max-width: 570px;
+
+    max-height: 590px;
 
     object-fit: contain;
 
     filter:
-        drop-shadow(0 0 15px rgba(100, 240, 230, 0.25))
-        drop-shadow(0 0 35px rgba(170, 100, 255, 0.15));
+        drop-shadow(
+            0 0 15px rgba(80, 230, 220, 0.25)
+        )
+        drop-shadow(
+            0 0 35px rgba(170, 100, 255, 0.18)
+        );
 }
 
-/* -------------------------
-   BUTTONS
-------------------------- */
+
+/* =========================
+   HOME BUTTONS
+========================= */
 
 .home-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
 
     position: relative;
+
     z-index: 5;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 35px;
 
     margin-top: -30px;
 }
 
 .main-button {
+
     display: block;
 
     width: 280px;
@@ -178,31 +258,39 @@ h1 {
 
     border: 1px solid #54e0cf;
 
+    background: rgba(0, 25, 25, 0.45);
+
     color: #63e5d5;
 
     text-align: center;
+
     text-decoration: none;
 
-    font-size: 13px;
+    font-size: 11px;
+
     letter-spacing: 2px;
 
-    background: rgba(0, 30, 28, 0.35);
-
-    transition: 0.2s;
+    transition:
+        background 0.2s,
+        box-shadow 0.2s,
+        transform 0.2s;
 }
 
 .main-button span {
+
     display: block;
 
     margin-top: 8px;
 
-    font-size: 7px;
-    letter-spacing: 1px;
-
     color: #7b9c9b;
+
+    font-size: 7px;
+
+    letter-spacing: 1px;
 }
 
 .main-button:hover {
+
     background: rgba(50, 220, 200, 0.12);
 
     box-shadow:
@@ -212,36 +300,43 @@ h1 {
 }
 
 .secondary-button {
+
     border-color: #b9a4e9;
+
     color: #d0c1f5;
 }
 
-/* -------------------------
+
+/* =========================
    HUD
-------------------------- */
+========================= */
 
 .hud {
+
     position: absolute;
 
-    border: 1px solid rgba(70, 220, 200, 0.35);
+    z-index: 5;
 
     padding: 12px;
 
-    font-size: 7px;
-    letter-spacing: 2px;
+    border: 1px solid rgba(70, 220, 200, 0.35);
+
+    background: rgba(0, 20, 20, 0.3);
 
     color: #4edcca;
 
-    background: rgba(0, 20, 20, 0.3);
+    font-size: 7px;
+
+    letter-spacing: 2px;
 }
 
 .hud span {
-    color: #888;
+    color: #777;
 }
 
 .hud-left {
     left: 0;
-    bottom: 25px;
+    bottom: 30px;
 }
 
 .hud-right {
@@ -249,55 +344,62 @@ h1 {
     top: 100px;
 }
 
-/* -------------------------
+
+/* =========================
    OTHER PAGES
-------------------------- */
+========================= */
 
 .back-link {
+
     display: inline-block;
 
     margin: 30px 0;
 
     color: #54e0cf;
 
-    font-size: 9px;
+    font-size: 8px;
+
     letter-spacing: 2px;
 
     text-decoration: none;
 }
 
 .page-layout {
+
+    position: relative;
+
     display: flex;
 
     min-height: 700px;
-
-    position: relative;
 }
 
 .form-section,
 .business-section {
+
     width: 65%;
 
     padding: 30px 20px;
 }
 
-/* -------------------------
+
+/* =========================
    INPUTS
-------------------------- */
+========================= */
 
 input:not([type="checkbox"]),
 select {
+
     width: 100%;
+
+    padding: 14px;
+
+    margin: 8px 0 25px;
 
     background: rgba(0, 20, 20, 0.5);
 
     border: 1px solid #315b58;
 
     color: white;
-
-    padding: 14px;
-
-    margin: 8px 0 25px;
 
     font-family: "Orbitron", sans-serif;
 
@@ -306,50 +408,62 @@ select {
 
 input:not([type="checkbox"]):focus,
 select:focus {
+
     border-color: #53dfcd;
 
     box-shadow:
         0 0 10px rgba(80, 220, 200, 0.15);
 }
 
+
+/* =========================
+   FORM LABELS
+========================= */
+
 .form-section > label:not(.check),
 .business-section > label {
+
     display: block;
 
-    font-size: 9px;
+    font-size: 8px;
 
     color: #59dccc;
 
     letter-spacing: 2px;
 }
 
-/* -------------------------
+
+/* =========================
    CHECKBOXES
-------------------------- */
+========================= */
 
 .check {
+
     display: block;
 
-    font-size: 10px;
-
-    letter-spacing: 1px;
+    margin: 18px 0;
 
     color: #b5c4c2;
 
-    margin: 18px 0;
+    font-size: 9px;
+
+    letter-spacing: 1px;
 }
 
 .check input {
-    accent-color: #50dfcd;
 
     margin-right: 12px;
+
+    accent-color: #50dfcd;
 }
 
-/* -------------------------
-   BUTTON
-------------------------- */
+
+/* =========================
+   BUTTONS
+========================= */
 
 button {
+
     padding: 15px 25px;
 
     margin-top: 25px;
@@ -368,17 +482,20 @@ button {
 }
 
 button:hover {
+
     background: rgba(70, 220, 200, 0.12);
 
     box-shadow:
         0 0 15px rgba(70, 220, 200, 0.2);
 }
 
-/* -------------------------
+
+/* =========================
    RESULT
-------------------------- */
+========================= */
 
 #result {
+
     margin-top: 30px;
 
     padding: 25px;
@@ -389,100 +506,108 @@ button:hover {
 }
 
 #result h2 {
+
     color: #65e5d7;
+
+    font-size: 20px;
 }
 
-/* -------------------------
-   FLOWERS ON OTHER PAGES
-------------------------- */
+
+/* =========================
+   SIDE FLOWER
+========================= */
 
 .side-flower {
+
     position: absolute;
 
     right: 0;
+
     top: 30px;
 
     width: 38%;
+
     height: 650px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     opacity: 0.75;
 }
 
 .side-flower .flower {
+
+    width: 100%;
+
     max-height: 650px;
+
+    object-fit: contain;
 }
 
-.business-flower {
-    opacity: 0.45;
-}
 
-/* -------------------------
+/* =========================
    BUSINESS DATABASE
-------------------------- */
+========================= */
 
 .sort-area {
+
     width: 300px;
 
     margin: 25px 0;
 }
 
 .sort-area label {
+
     display: block;
+
+    margin-bottom: 10px;
 
     color: #54dfcd;
 
-    font-size: 9px;
+    font-size: 8px;
 
     letter-spacing: 2px;
-
-    margin-bottom: 10px;
 }
 
 .business-card {
-    position: relative;
-
-    border: 1px solid #284543;
-
-    background: rgba(10, 20, 20, 0.55);
 
     padding: 20px;
 
     margin: 15px 0;
 
-    transition: 0.2s;
-}
+    border: 1px solid #284543;
 
-.business-card:hover {
-    border-color: #50dcca;
-
-    background: rgba(20, 40, 40, 0.5);
+    background: rgba(10, 20, 20, 0.55);
 }
 
 .business-card h2 {
+
     margin: 0 0 10px;
 
-    font-size: 17px;
+    font-size: 14px;
 
-    color: #eeeeee;
+    letter-spacing: 1px;
 }
 
 .business-card p {
-    font-size: 9px;
 
     color: #829795;
+
+    font-size: 8px;
 
     letter-spacing: 1px;
 }
 
 .business-card a {
+
     color: #55dccc;
 }
 
 .delete-button {
+
     border-color: #775555;
 
     color: #d89090;
@@ -490,62 +615,82 @@ button:hover {
     font-size: 8px;
 
     padding: 8px 12px;
-
-    margin-top: 5px;
 }
 
 .small-button {
+
+    display: block;
+
     width: 220px;
 
     margin-top: 30px;
-
-    font-size: 9px;
 }
 
-/* -------------------------
+
+/* =========================
    MOBILE
-------------------------- */
+========================= */
 
 @media (max-width: 800px) {
 
-    .home-container,
-    .page-container {
+    .home-container {
+
         padding: 25px;
     }
 
-    .home-text {
-        width: 100%;
+    .home-main {
+
+        min-height: 650px;
     }
 
-    .flower-container {
-        opacity: 0.35;
+    .home-text {
 
         width: 100%;
 
-        right: 0;
+        padding-left: 0;
+    }
+
+    .home-flower {
+
+        left: 15%;
+
+        width: 85%;
+
+        opacity: 0.35;
     }
 
     .home-buttons {
+
         flex-direction: column;
+
         align-items: center;
 
-        margin-top: -20px;
+        margin-top: 0;
+    }
+
+    .main-button {
+
+        width: 90%;
+    }
+
+    .hud {
+
+        display: none;
     }
 
     .page-layout {
+
         display: block;
     }
 
     .form-section,
     .business-section {
+
         width: 100%;
     }
 
     .side-flower {
-        display: none;
-    }
 
-    .hud {
         display: none;
     }
 }
