@@ -1,30 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Businesses - Opportunity Checker</title>
+    <title>SUTÉRA — Saved Businesses</title>
     <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="grid-background"></div>
 
-        <a href="index.html">← Home</a>
+    <div class="container page-container">
 
-        <h1>Saved Businesses</h1>
+        <a href="index.html" class="back-link">← RETURN HOME</a>
 
-        <div class="sort-area">
-
-            <label for="sort">Organize by:</label>
-
-            <select id="sort" onchange="displayBusinesses()">
-                <option value="priority">Priority: High → Low</option>
-                <option value="recent">Most Recently Tested</option>
-            </select>
-
+        <div class="brand">
+            SUTÉRA
+            <span>SYSTEMS // BUSINESS DATABASE</span>
         </div>
 
-        <div id="businessList"></div>
+        <div class="page-layout">
+
+            <div class="business-section">
+
+                <p class="eyebrow">DATABASE // OPPORTUNITIES</p>
+
+                <h1>SAVED BUSINESSES</h1>
+
+                <div class="sort-area">
+
+                    <label for="sort">ORGANIZE BY</label>
+
+                    <select id="sort" onchange="displayBusinesses()">
+                        <option value="priority">
+                            PRIORITY: HIGH → LOW
+                        </option>
+
+                        <option value="recent">
+                            MOST RECENTLY TESTED
+                        </option>
+                    </select>
+
+                </div>
+
+                <div id="businessList"></div>
+
+                <a href="tester.html" class="main-button small-button">
+                    TEST NEW WEBSITE
+                </a>
+
+            </div>
+
+            <div class="side-flower business-flower">
+                <img src="flower.png" class="flower" alt="">
+            </div>
+
+        </div>
 
     </div>
 
