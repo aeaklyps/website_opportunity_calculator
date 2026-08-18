@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Website - Opportunity Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <a href="index.html">← Home</a>
+
+        <h1>Test a Website</h1>
+
+        <input id="business" placeholder="Business name">
+
+        <input id="website" placeholder="Website URL">
+
+        <h3>Website Evaluation</h3>
+
+        <p>Check the features that the website DOES have.</p>
+
+        <label>
+            <input type="checkbox" id="mobile">
+            Mobile friendly
+        </label>
+
+        <label>
+            <input type="checkbox" id="contact">
+            Contact information is easy to find
+        </label>
+
+        <label>
+            <input type="checkbox" id="cta">
+            Clear call-to-action
+        </label>
+
+        <label>
+            <input type="checkbox" id="social">
+            Social media links
+        </label>
+
+        <label>
+            <input type="checkbox" id="design">
+            Modern design
+        </label>
+
+        <button onclick="analyze()">Analyze Website</button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
