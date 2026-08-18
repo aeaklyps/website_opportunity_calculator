@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Businesses - Opportunity Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <a href="index.html">← Home</a>
+
+        <h1>Saved Businesses</h1>
+
+        <div class="sort-area">
+
+            <label for="sort">Organize by:</label>
+
+            <select id="sort" onchange="displayBusinesses()">
+                <option value="priority">Priority: High → Low</option>
+                <option value="recent">Most Recently Tested</option>
+            </select>
+
+        </div>
+
+        <div id="businessList"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
