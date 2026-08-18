@@ -1,54 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Website - Opportunity Checker</title>
+    <title>SUTÉRA — Test Website</title>
     <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="grid-background"></div>
 
-        <a href="index.html">← Home</a>
+    <div class="container page-container">
 
-        <h1>Test a Website</h1>
+        <a href="index.html" class="back-link">← RETURN HOME</a>
 
-        <input id="business" placeholder="Business name">
+        <div class="brand">
+            SUTÉRA
+            <span>SYSTEMS // ANALYSIS</span>
+        </div>
 
-        <input id="website" placeholder="Website URL">
+        <div class="page-layout">
 
-        <h3>Website Evaluation</h3>
+            <div class="form-section">
 
-        <p>Check the features that the website DOES have.</p>
+                <p class="eyebrow">ANALYSIS UNIT // 001</p>
 
-        <label>
-            <input type="checkbox" id="mobile">
-            Mobile friendly
-        </label>
+                <h1>TEST A WEBSITE</h1>
 
-        <label>
-            <input type="checkbox" id="contact">
-            Contact information is easy to find
-        </label>
+                <label>BUSINESS NAME</label>
 
-        <label>
-            <input type="checkbox" id="cta">
-            Clear call-to-action
-        </label>
+                <input
+                    id="business"
+                    placeholder="Enter business name"
+                >
 
-        <label>
-            <input type="checkbox" id="social">
-            Social media links
-        </label>
+                <label>WEBSITE URL</label>
 
-        <label>
-            <input type="checkbox" id="design">
-            Modern design
-        </label>
+                <input
+                    id="website"
+                    placeholder="https://example.com"
+                >
 
-        <button onclick="analyze()">Analyze Website</button>
+                <label>WEBSITE EVALUATION</label>
 
-        <div id="result"></div>
+                <p class="instructions">
+                    CHECK THE FEATURES THE WEBSITE DOES HAVE.
+                </p>
+
+                <label class="check">
+                    <input type="checkbox" id="mobile">
+                    Mobile friendly
+                </label>
+
+                <label class="check">
+                    <input type="checkbox" id="contact">
+                    Contact information is easy to find
+                </label>
+
+                <label class="check">
+                    <input type="checkbox" id="cta">
+                    Clear call-to-action
+                </label>
+
+                <label class="check">
+                    <input type="checkbox" id="social">
+                    Social media links
+                </label>
+
+                <label class="check">
+                    <input type="checkbox" id="design">
+                    Modern design
+                </label>
+
+                <button onclick="analyze()">
+                    ANALYZE WEBSITE
+                </button>
+
+                <div id="result"></div>
+
+            </div>
+
+            <div class="side-flower">
+                <img src="flower.png" class="flower" alt="">
+            </div>
+
+        </div>
 
     </div>
 
