@@ -1,116 +1,268 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 40px;
+function analyze() {
+
+    const businessName = document.getElementById("business").value;
+    const website = document.getElementById("website").value;
+
+    if (businessName.trim() === "" || website.trim() === "") {
+        alert("Please enter a business name and website URL.");
+        return;
+    }
+
+    let score = 0;
+
+    // Higher score = more opportunity for improvement
+
+    if (!document.getElementById("mobile").checked) {
+        score += 20;
+    }
+
+    if (!document.getElementById("contact").checked) {
+        score += 20;
+    }
+
+    if (!document.getElementById("cta").checked) {
+        score += 20;
+    }
+
+    if (!document.getElementById("social").checked) {
+        score += 10;
+    }
+
+    if (!document.getElementById("design").checked) {
+        score += 30;
+    }
+
+
+    // Determine priority
+
+    let priority;
+
+    if (score >= 70) {
+        priority = "High";
+    }
+    else if (score >= 40) {
+        priority = "Medium";
+    }
+    else {
+        priority = "Low";
+    }
+
+
+    // Current date and time
+
+    const testedAt = new Date().toISOString();
+
+
+    // Create business object
+
+    const business = {
+        name: businessName,
+        website: website,
+        score: score,
+        priority: priority,
+        testedAt: testedAt
+    };
+
+
+    // Get existing businesses
+
+    let businesses = JSON.parse(
+        localStorage.getItem("businesses")
+    ) || [];
+
+
+    // Add new business
+
+    businesses.push(business);
+
+
+    // Save businesses
+
+    localStorage.setItem(
+        "businesses",
+        JSON.stringify(businesses)
+    );
+
+
+    // Display result
+
+    document.getElementById("result").innerHTML = `
+        <h2>Opportunity Score: ${score}/100</h2>
+        <h3>Priority: ${priority}</h3>
+
+        <p>
+            <strong>${businessName}</strong> has been saved.
+        </p>
+
+        <p>
+            <a href="businesses.html">
+                View all businesses
+            </a>
+        </p>
+    `;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+
+// Display businesses on the businesses page
+
+function displayBusinesses() {
+
+    const businessList = document.getElementById("businessList");
+
+    if (!businessList) {
+        return;
+    }
+
+
+    let businesses = JSON.parse(
+        localStorage.getItem("businesses")
+    ) || [];
+
+
+    const sortOption = document.getElementById("sort").value;
+
+
+    // Sort by priority
+
+    if (sortOption === "priority") {
+
+        const priorityValues = {
+            "High": 3,
+            "Medium": 2,
+            "Low": 1
+        };
+
+        businesses.sort(function(a, b) {
+
+            return priorityValues[b.priority] -
+                   priorityValues[a.priority];
+
+        });
+
+    }
+
+
+    // Sort by most recently tested
+
+    if (sortOption === "recent") {
+
+        businesses.sort(function(a, b) {
+
+            return new Date(b.testedAt) -
+                   new Date(a.testedAt);
+
+        });
+
+    }
+
+
+    // No businesses
+
+    if (businesses.length === 0) {
+
+        businessList.innerHTML = `
+            <p>
+                No businesses have been tested yet.
+            </p>
+
+            <a href="tester.html" class="button">
+                Test a Website
+            </a>
+        `;
+
+        return;
+    }
+
+
+    // Clear previous results
+
+    businessList.innerHTML = "";
+
+
+    // Create cards
+
+    businesses.forEach(function(business, index) {
+
+        const date = new Date(
+            business.testedAt
+        ).toLocaleString();
+
+
+        const card = document.createElement("div");
+
+        card.className = "business-card";
+
+
+        card.innerHTML = `
+            <h2>${business.name}</h2>
+
+            <p>
+                <a href="${business.website}"
+                   target="_blank">
+                    ${business.website}
+                </a>
+            </p>
+
+            <p>
+                <strong>Opportunity Score:</strong>
+                ${business.score}/100
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+                ${business.priority}
+            </p>
+
+            <p>
+                <strong>Last Tested:</strong>
+                ${date}
+            </p>
+
+            <button
+                class="delete-button"
+                onclick="deleteBusiness(${index})">
+                Delete
+            </button>
+        `;
+
+
+        businessList.appendChild(card);
+
+    });
+
 }
 
-h1 {
-    margin-bottom: 10px;
+
+
+// Delete a business
+
+function deleteBusiness(index) {
+
+    let businesses = JSON.parse(
+        localStorage.getItem("businesses")
+    ) || [];
+
+
+    businesses.splice(index, 1);
+
+
+    localStorage.setItem(
+        "businesses",
+        JSON.stringify(businesses)
+    );
+
+
+    displayBusinesses();
+
 }
 
-.subtitle {
-    color: #666;
-    margin-bottom: 30px;
-}
 
-input[type="text"],
-input:not([type]),
-select {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-label {
-    display: block;
-    margin: 15px 0;
-}
+// Automatically display businesses when page opens
 
-button,
-.button {
-    display: inline-block;
-    padding: 12px 20px;
-    margin-top: 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-}
+if (document.getElementById("businessList")) {
 
-button:hover,
-.button:hover {
-    background-color: #555;
-}
+    displayBusinesses();
 
-.secondary {
-    background-color: #777;
-}
-
-.home-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-#result {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-}
-
-.sort-area {
-    margin: 20px 0;
-}
-
-.sort-area select {
-    max-width: 300px;
-}
-
-.business-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 8px;
-    background-color: #fafafa;
-}
-
-.business-card h2 {
-    margin-top: 0;
-}
-
-.business-card a {
-    color: #333;
-}
-
-.high {
-    font-weight: bold;
-}
-
-.medium {
-    font-weight: bold;
-}
-
-.low {
-    font-weight: bold;
-}
-
-.delete-button {
-    background-color: #999;
-    margin-top: 10px;
 }
