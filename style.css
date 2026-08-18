@@ -1,268 +1,551 @@
-function analyze() {
-
-    const businessName = document.getElementById("business").value;
-    const website = document.getElementById("website").value;
-
-    if (businessName.trim() === "" || website.trim() === "") {
-        alert("Please enter a business name and website URL.");
-        return;
-    }
-
-    let score = 0;
-
-    // Higher score = more opportunity for improvement
-
-    if (!document.getElementById("mobile").checked) {
-        score += 20;
-    }
-
-    if (!document.getElementById("contact").checked) {
-        score += 20;
-    }
-
-    if (!document.getElementById("cta").checked) {
-        score += 20;
-    }
-
-    if (!document.getElementById("social").checked) {
-        score += 10;
-    }
-
-    if (!document.getElementById("design").checked) {
-        score += 30;
-    }
-
-
-    // Determine priority
-
-    let priority;
-
-    if (score >= 70) {
-        priority = "High";
-    }
-    else if (score >= 40) {
-        priority = "Medium";
-    }
-    else {
-        priority = "Low";
-    }
-
-
-    // Current date and time
-
-    const testedAt = new Date().toISOString();
-
-
-    // Create business object
-
-    const business = {
-        name: businessName,
-        website: website,
-        score: score,
-        priority: priority,
-        testedAt: testedAt
-    };
-
-
-    // Get existing businesses
-
-    let businesses = JSON.parse(
-        localStorage.getItem("businesses")
-    ) || [];
-
-
-    // Add new business
-
-    businesses.push(business);
-
-
-    // Save businesses
-
-    localStorage.setItem(
-        "businesses",
-        JSON.stringify(businesses)
-    );
-
-
-    // Display result
-
-    document.getElementById("result").innerHTML = `
-        <h2>Opportunity Score: ${score}/100</h2>
-        <h3>Priority: ${priority}</h3>
-
-        <p>
-            <strong>${businessName}</strong> has been saved.
-        </p>
-
-        <p>
-            <a href="businesses.html">
-                View all businesses
-            </a>
-        </p>
-    `;
+* {
+    box-sizing: border-box;
 }
 
-
-
-// Display businesses on the businesses page
-
-function displayBusinesses() {
-
-    const businessList = document.getElementById("businessList");
-
-    if (!businessList) {
-        return;
-    }
-
-
-    let businesses = JSON.parse(
-        localStorage.getItem("businesses")
-    ) || [];
-
-
-    const sortOption = document.getElementById("sort").value;
-
-
-    // Sort by priority
-
-    if (sortOption === "priority") {
-
-        const priorityValues = {
-            "High": 3,
-            "Medium": 2,
-            "Low": 1
-        };
-
-        businesses.sort(function(a, b) {
-
-            return priorityValues[b.priority] -
-                   priorityValues[a.priority];
-
-        });
-
-    }
-
-
-    // Sort by most recently tested
-
-    if (sortOption === "recent") {
-
-        businesses.sort(function(a, b) {
-
-            return new Date(b.testedAt) -
-                   new Date(a.testedAt);
-
-        });
-
-    }
-
-
-    // No businesses
-
-    if (businesses.length === 0) {
-
-        businessList.innerHTML = `
-            <p>
-                No businesses have been tested yet.
-            </p>
-
-            <a href="tester.html" class="button">
-                Test a Website
-            </a>
-        `;
-
-        return;
-    }
-
-
-    // Clear previous results
-
-    businessList.innerHTML = "";
-
-
-    // Create cards
-
-    businesses.forEach(function(business, index) {
-
-        const date = new Date(
-            business.testedAt
-        ).toLocaleString();
-
-
-        const card = document.createElement("div");
-
-        card.className = "business-card";
-
-
-        card.innerHTML = `
-            <h2>${business.name}</h2>
-
-            <p>
-                <a href="${business.website}"
-                   target="_blank">
-                    ${business.website}
-                </a>
-            </p>
-
-            <p>
-                <strong>Opportunity Score:</strong>
-                ${business.score}/100
-            </p>
-
-            <p>
-                <strong>Priority:</strong>
-                ${business.priority}
-            </p>
-
-            <p>
-                <strong>Last Tested:</strong>
-                ${date}
-            </p>
-
-            <button
-                class="delete-button"
-                onclick="deleteBusiness(${index})">
-                Delete
-            </button>
-        `;
-
-
-        businessList.appendChild(card);
-
-    });
-
+body {
+    margin: 0;
+    background: #030505;
+    color: #eeeeee;
+    font-family: "Orbitron", Arial, sans-serif;
+    min-height: 100vh;
 }
 
+/* -------------------------
+   BACKGROUND
+------------------------- */
 
+.grid-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
 
-// Delete a business
+    background-image:
+        linear-gradient(rgba(60, 220, 200, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(60, 220, 200, 0.035) 1px, transparent 1px);
 
-function deleteBusiness(index) {
+    background-size: 55px 55px;
 
-    let businesses = JSON.parse(
-        localStorage.getItem("businesses")
-    ) || [];
-
-
-    businesses.splice(index, 1);
-
-
-    localStorage.setItem(
-        "businesses",
-        JSON.stringify(businesses)
-    );
-
-
-    displayBusinesses();
-
+    pointer-events: none;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
 
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(90, 220, 210, 0.08),
+            transparent 45%
+        );
 
-// Automatically display businesses when page opens
+    pointer-events: none;
+}
 
-if (document.getElementById("businessList")) {
+/* -------------------------
+   MAIN CONTAINERS
+------------------------- */
 
-    displayBusinesses();
+.container {
+    width: 92%;
+    max-width: 1250px;
+    margin: auto;
+    position: relative;
+}
 
+.home-container {
+    min-height: 100vh;
+    padding: 35px 40px;
+}
+
+.page-container {
+    min-height: 100vh;
+    padding: 35px 40px;
+}
+
+/* -------------------------
+   BRAND
+------------------------- */
+
+.brand {
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #e9eeee;
+}
+
+.brand span {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #4edcca;
+    margin-top: 4px;
+}
+
+/* -------------------------
+   TEXT
+------------------------- */
+
+.eyebrow {
+    color: #51ddca;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    font-size: clamp(35px, 5vw, 70px);
+    line-height: 1.05;
+    letter-spacing: 3px;
+    margin: 20px 0;
+}
+
+.description {
+    color: #65d9cf;
+    font-size: 12px;
+    line-height: 2;
+    letter-spacing: 1px;
+}
+
+.instructions {
+    font-size: 8px;
+    color: #4edcca;
+    letter-spacing: 1px;
+}
+
+/* -------------------------
+   HOME
+------------------------- */
+
+.home-content {
+    position: relative;
+    min-height: 550px;
+
+    display: flex;
+    align-items: center;
+}
+
+.home-text {
+    width: 45%;
+    z-index: 2;
+}
+
+.flower-container {
+    position: absolute;
+
+    width: 55%;
+    height: 650px;
+
+    right: 3%;
+    top: -30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flower {
+    width: 100%;
+    max-width: 600px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 15px rgba(100, 240, 230, 0.25))
+        drop-shadow(0 0 35px rgba(170, 100, 255, 0.15));
+}
+
+/* -------------------------
+   BUTTONS
+------------------------- */
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    position: relative;
+    z-index: 5;
+
+    margin-top: -30px;
+}
+
+.main-button {
+    display: block;
+
+    width: 280px;
+
+    padding: 18px 25px;
+
+    border: 1px solid #54e0cf;
+
+    color: #63e5d5;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+
+    background: rgba(0, 30, 28, 0.35);
+
+    transition: 0.2s;
+}
+
+.main-button span {
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 7px;
+    letter-spacing: 1px;
+
+    color: #7b9c9b;
+}
+
+.main-button:hover {
+    background: rgba(50, 220, 200, 0.12);
+
+    box-shadow:
+        0 0 15px rgba(60, 220, 200, 0.25);
+
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    border-color: #b9a4e9;
+    color: #d0c1f5;
+}
+
+/* -------------------------
+   HUD
+------------------------- */
+
+.hud {
+    position: absolute;
+
+    border: 1px solid rgba(70, 220, 200, 0.35);
+
+    padding: 12px;
+
+    font-size: 7px;
+    letter-spacing: 2px;
+
+    color: #4edcca;
+
+    background: rgba(0, 20, 20, 0.3);
+}
+
+.hud span {
+    color: #888;
+}
+
+.hud-left {
+    left: 0;
+    bottom: 25px;
+}
+
+.hud-right {
+    right: 0;
+    top: 100px;
+}
+
+/* -------------------------
+   OTHER PAGES
+------------------------- */
+
+.back-link {
+    display: inline-block;
+
+    margin: 30px 0;
+
+    color: #54e0cf;
+
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    text-decoration: none;
+}
+
+.page-layout {
+    display: flex;
+
+    min-height: 700px;
+
+    position: relative;
+}
+
+.form-section,
+.business-section {
+    width: 65%;
+
+    padding: 30px 20px;
+}
+
+/* -------------------------
+   INPUTS
+------------------------- */
+
+input:not([type="checkbox"]),
+select {
+    width: 100%;
+
+    background: rgba(0, 20, 20, 0.5);
+
+    border: 1px solid #315b58;
+
+    color: white;
+
+    padding: 14px;
+
+    margin: 8px 0 25px;
+
+    font-family: "Orbitron", sans-serif;
+
+    outline: none;
+}
+
+input:not([type="checkbox"]):focus,
+select:focus {
+    border-color: #53dfcd;
+
+    box-shadow:
+        0 0 10px rgba(80, 220, 200, 0.15);
+}
+
+.form-section > label:not(.check),
+.business-section > label {
+    display: block;
+
+    font-size: 9px;
+
+    color: #59dccc;
+
+    letter-spacing: 2px;
+}
+
+/* -------------------------
+   CHECKBOXES
+------------------------- */
+
+.check {
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    color: #b5c4c2;
+
+    margin: 18px 0;
+}
+
+.check input {
+    accent-color: #50dfcd;
+
+    margin-right: 12px;
+}
+
+/* -------------------------
+   BUTTON
+------------------------- */
+
+button {
+    padding: 15px 25px;
+
+    margin-top: 25px;
+
+    background: transparent;
+
+    border: 1px solid #55dfcd;
+
+    color: #55dfcd;
+
+    font-family: "Orbitron", sans-serif;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgba(70, 220, 200, 0.12);
+
+    box-shadow:
+        0 0 15px rgba(70, 220, 200, 0.2);
+}
+
+/* -------------------------
+   RESULT
+------------------------- */
+
+#result {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-left: 2px solid #53dfcd;
+
+    background: rgba(30, 50, 50, 0.25);
+}
+
+#result h2 {
+    color: #65e5d7;
+}
+
+/* -------------------------
+   FLOWERS ON OTHER PAGES
+------------------------- */
+
+.side-flower {
+    position: absolute;
+
+    right: 0;
+    top: 30px;
+
+    width: 38%;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.75;
+}
+
+.side-flower .flower {
+    max-height: 650px;
+}
+
+.business-flower {
+    opacity: 0.45;
+}
+
+/* -------------------------
+   BUSINESS DATABASE
+------------------------- */
+
+.sort-area {
+    width: 300px;
+
+    margin: 25px 0;
+}
+
+.sort-area label {
+    display: block;
+
+    color: #54dfcd;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.business-card {
+    position: relative;
+
+    border: 1px solid #284543;
+
+    background: rgba(10, 20, 20, 0.55);
+
+    padding: 20px;
+
+    margin: 15px 0;
+
+    transition: 0.2s;
+}
+
+.business-card:hover {
+    border-color: #50dcca;
+
+    background: rgba(20, 40, 40, 0.5);
+}
+
+.business-card h2 {
+    margin: 0 0 10px;
+
+    font-size: 17px;
+
+    color: #eeeeee;
+}
+
+.business-card p {
+    font-size: 9px;
+
+    color: #829795;
+
+    letter-spacing: 1px;
+}
+
+.business-card a {
+    color: #55dccc;
+}
+
+.delete-button {
+    border-color: #775555;
+
+    color: #d89090;
+
+    font-size: 8px;
+
+    padding: 8px 12px;
+
+    margin-top: 5px;
+}
+
+.small-button {
+    width: 220px;
+
+    margin-top: 30px;
+
+    font-size: 9px;
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media (max-width: 800px) {
+
+    .home-container,
+    .page-container {
+        padding: 25px;
+    }
+
+    .home-text {
+        width: 100%;
+    }
+
+    .flower-container {
+        opacity: 0.35;
+
+        width: 100%;
+
+        right: 0;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+        align-items: center;
+
+        margin-top: -20px;
+    }
+
+    .page-layout {
+        display: block;
+    }
+
+    .form-section,
+    .business-section {
+        width: 100%;
+    }
+
+    .side-flower {
+        display: none;
+    }
+
+    .hud {
+        display: none;
+    }
 }
