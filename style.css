@@ -1,117 +1,127 @@
 /* =========================
-   SLIDER ROW
+   SLIDERS
 ========================= */
 
-.scoring-row {
-    display: grid;
-    grid-template-columns: 1fr minmax(420px, 1.4fr) 90px;
-    align-items: center;
-    gap: 28px;
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+
     width: 100%;
-}
+    height: 14px;
 
-
-/* =========================
-   SLIDER
-========================= */
-
-.scoring-row input[type="range"] {
-    width: 100%;
-    height: 16px;
     margin: 0;
     padding: 0;
-    appearance: none;
-    -webkit-appearance: none;
+
     background: transparent;
     cursor: pointer;
-}
-
-/* Chrome / Edge / Safari */
-.scoring-row input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: #3a3d40;
-}
-
-.scoring-row input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    margin-top: -8px;
-    border: none;
-    border-radius: 50%;
-    background: #8055e8;
-}
-
-/* Firefox */
-.scoring-row input[type="range"]::-moz-range-track {
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: #3a3d40;
-}
-
-.scoring-row input[type="range"]::-moz-range-progress {
-    height: 4px;
-    border-radius: 2px;
-    background: #8055e8;
-}
-
-.scoring-row input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 50%;
-    background: #8055e8;
-}
-
-
-/* =========================
-   PERCENTAGE
-========================= */
-
-.scoring-row .score-value {
-    width: 90px;
-    min-width: 90px;
-    text-align: center;
-    white-space: nowrap;
-}
-
-
-/* =========================
-   IMPORTANT:
-   PREVENT SLIDER FROM
-   OVERFLOWING / SHRINKING
-========================= */
-
-.scoring-row > * {
-    min-width: 0;
-}
-
-.scoring-row input[type="range"] {
     box-sizing: border-box;
 }
 
 
 /* =========================
-   RESPONSIVE
+   CHROME / EDGE / SAFARI
 ========================= */
 
-@media (max-width: 900px) {
-    .scoring-row {
-        grid-template-columns: 1fr 90px;
-        gap: 18px;
-    }
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
 
-    .scoring-row input[type="range"] {
-        grid-column: 1 / -1;
-        grid-row: 2;
-    }
+    margin: 0;
+    padding: 0;
 
-    .scoring-row .score-value {
-        grid-column: 2;
-        grid-row: 1;
-    }
+    border: none;
+    border-radius: 3px;
+
+    background: #3a3d40;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 18px;
+    height: 18px;
+
+    margin-top: -7.5px;
+
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+
+    background: #8055e8;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   FIREFOX
+========================= */
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 3px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 3px;
+
+    background: #3a3d40;
+}
+
+input[type="range"]::-moz-range-progress {
+    height: 3px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 3px;
+
+    background: #8055e8;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #8055e8;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   REMOVE DEFAULT FOCUS
+   SPACING / OUTLINES
+========================= */
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-container {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.05);
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.05);
 }
