@@ -1,127 +1,169 @@
-/* =========================
-   SLIDERS
-========================= */
+/* =========================================
+   SLIDER ROW
+========================================= */
 
-input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-
+.scoring-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 70px;
+    align-items: center;
+    column-gap: 18px;
     width: 100%;
-    height: 14px;
+}
+
+
+/* =========================================
+   SLIDER + PERCENTAGE
+========================================= */
+
+.scoring-row .slider-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+}
+
+.scoring-row input[type="range"] {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: 18px;
 
     margin: 0;
     padding: 0;
 
+    appearance: none;
+    -webkit-appearance: none;
+
     background: transparent;
     cursor: pointer;
+}
+
+
+/* =========================================
+   THIN LINE — CHROME / EDGE / SAFARI
+========================================= */
+
+.scoring-row input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 2px;
+
+    background: #555;
+}
+
+
+/* =========================================
+   MOVING CIRCLE — CHROME / EDGE / SAFARI
+========================================= */
+
+.scoring-row input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 16px;
+    height: 16px;
+
+    margin-top: -7px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #8b5cf6;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   FIREFOX TRACK
+========================================= */
+
+.scoring-row input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 2px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 2px;
+
+    background: #555;
+}
+
+
+/* =========================================
+   FIREFOX FILLED TRACK
+========================================= */
+
+.scoring-row input[type="range"]::-moz-range-progress {
+    height: 2px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 2px;
+
+    background: #8b5cf6;
+}
+
+
+/* =========================================
+   FIREFOX THUMB
+========================================= */
+
+.scoring-row input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #8b5cf6;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   PERCENTAGE
+========================================= */
+
+.scoring-row .score-value {
+    width: 70px;
+    min-width: 70px;
+
+    margin: 0;
+    padding: 0;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   IMPORTANT:
+   DON'T ADD PADDING TO THE SLIDER
+========================================= */
+
+.scoring-row input[type="range"] {
     box-sizing: border-box;
 }
 
 
-/* =========================
-   CHROME / EDGE / SAFARI
-========================= */
+/* =========================================
+   FOCUS
+========================================= */
 
-input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-
-    margin: 0;
-    padding: 0;
-
-    border: none;
-    border-radius: 3px;
-
-    background: #3a3d40;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-
-    width: 18px;
-    height: 18px;
-
-    margin-top: -7.5px;
-
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-
-    background: #8055e8;
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   FIREFOX
-========================= */
-
-input[type="range"]::-moz-range-track {
-    width: 100%;
-    height: 3px;
-
-    margin: 0;
-    padding: 0;
-
-    border: none;
-    border-radius: 3px;
-
-    background: #3a3d40;
-}
-
-input[type="range"]::-moz-range-progress {
-    height: 3px;
-
-    margin: 0;
-    padding: 0;
-
-    border: none;
-    border-radius: 3px;
-
-    background: #8055e8;
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-
-    margin: 0;
-    padding: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #8055e8;
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   REMOVE DEFAULT FOCUS
-   SPACING / OUTLINES
-========================= */
-
-input[type="range"]:focus {
+.scoring-row input[type="range"]:focus {
     outline: none;
-}
-
-input[type="range"]::-webkit-slider-container {
-    margin: 0;
-    padding: 0;
-}
-
-
-/* =========================
-   HOVER
-========================= */
-
-input[type="range"]:hover::-webkit-slider-thumb {
-    transform: scale(1.05);
-}
-
-input[type="range"]:hover::-moz-range-thumb {
-    transform: scale(1.05);
 }
